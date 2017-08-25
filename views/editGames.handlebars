@@ -1,0 +1,26 @@
+<h1>Edit Game</h1>
+<div id="editGames">
+	{{#each results}}
+	<form action= "/editGames" method="post">
+		<fieldset>
+			<legend>Enter the Game Data Below</legend>
+			<div class="pure-control-group">
+				<input name="id" value={{this.id}} hidden></input>
+				<label for="name">Title</label>
+				<input type="text" name="title" id="editTitleForm" value="{{this.title}}"></input>
+			</div>
+			<div class="pure-control-group">
+				<label for="reps">Date Released</label>
+				<input type="text" name="reps" id="editYearReleasedForm" value={{this.yearReleased}}></input>
+			</div>
+			<div class="pure-control-group">
+				<label for="weight">Sales (Millions)</label>
+				<input type="text" name="sales" id="editSalesForm" value={{this.sales}}></input>
+			</div>
+			<div class="pure-controls">	
+				<a href="/"><input type="submit" formaction="/editGames" id="editGames"></a>
+			</div>
+		</fieldset>
+	</form>
+	{{/each}}
+</div>

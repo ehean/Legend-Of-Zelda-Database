@@ -1,0 +1,237 @@
+<h1>Legend of Zelda MySQL Database</h1>
+<div>
+	<form>
+		<fieldset style="margin: 40px 200px">
+			<legend>Add a game to a console</legend>
+			<div style="margin:auto; width: 400px">
+				<div class="pure-control-group"  id="ConsolesDropdown">
+					<select>
+						{{#each consoleResults}}
+								<option value={{this.id}}>{{this.name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<p> HAS </p>
+				<div class="pure-control-group" id="GamesDropdown" style="margin-left:auto;margin-right:auto;">
+					<select>
+						{{#each gameResults}}
+								<option value={{this.id}}>{{this.title}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="pure-control-group" style="margin-left:auto;margin-right:auto;">
+					<button id="Games_Consoles_Add" type="submit" class="pure-button" onclick="addRelationship(event)">Add</button>
+				</div>
+				<p id="Games_Consoles_Result"></p>
+			</div>
+			</fieldset>
+	</form>
+</div>
+<div>
+	<form>
+		<fieldset style="margin: 40px 200px">
+			<legend>Add a character to a game</legend>
+			<div style="margin:auto; width: 400px">
+				<div class="pure-control-group" id="GamesDropdown">
+					<select>
+						{{#each gameResults}}
+								<option value={{this.id}}>{{this.title}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<p> HAS </p>
+				<div class="pure-control-group" id="GamesDropdown">
+					<select>
+						{{#each characterResults}}
+								<option value={{this.id}}>{{this.name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="pure-control-group" id="GamesDropdown">
+					<button id="Games_Characters_Add" type="submit" class="pure-button" onclick="addRelationship(event)">Add</button>
+				</div>
+				<p id="Games_Characters_Result"></p>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div>
+	<form >
+		<fieldset style="margin: 40px 200px">
+			<legend>Change a character's home world (location)</legend>
+			<div style="margin:auto; width: 400px">
+				<div class="pure-control-group" id="GamesDropdown">
+					<select>
+						{{#each locationResults}}
+								<option value={{this.id}}>{{this.name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<p> HAS </p>
+				<div class="pure-control-group" id="GamesDropdown">
+					<select>
+						{{#each characterResults}}
+								<option value={{this.id}}>{{this.name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="pure-control-group">
+					<button id="Homeworld_Chg" type="submit" class="pure-button" onclick="addRelationship(event)">Add</button>
+					<p id="Homeworld_Result"></p>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div>
+	<form class="pure-form pure-form-aligned">
+		<fieldset style="margin: 40px 200px">
+			<legend>Search Tables</legend>
+			<div class="pure-control-group">
+				<input type="text" id="searchField"></input>
+				<button class="pure-button" onclick="search(event)">Search</buton>
+			</div>
+		</fieldset>
+	</form> 	
+</div>
+<div id="searchResults" style="margin: 40px 200px">
+</div>
+<div>
+	<form class="pure-form pure-form-aligned">
+		<fieldset style="margin: 40px 200px">
+			<legend>Display Relations</legend>
+			<div class="pure-control-group" id="GamesDropdown">
+				<select>
+					{{#each gameResults}}
+							<option value={{this.id}}>{{this.title}}</option>
+					{{/each}}
+				</select>
+				<button class="pure-button" onclick="showRelationships(event)">Show</button>
+			</div>
+			<div class="pure-control-group" id="ConsolesDropdown">
+				<select name="ConsolesDropdown">
+					{{#each consoleResults}}
+							<option value={{this.id}}>{{this.name}}</option>
+					{{/each}}
+				</select>
+				<button class="pure-button" onclick="showRelationships(event)">Show</button>
+			</div>	
+			<div class="pure-control-group" id="LocationsDropdown">
+				<select name="LocationsDropdown">
+					{{#each locationResults}}
+							<option value={{this.id}}>{{this.name}}</option>
+					{{/each}}
+				</select>
+				<button class="pure-button" onclick="showRelationships(event)">Show</button>
+			</div>
+			<div class="pure-control-group" id="CharactersDropdown">	
+				<select name="CharactersDropdown">
+					{{#each characterResults}}
+							<option value={{this.id}}>{{this.name}}</option>
+					{{/each}}
+				</select>
+				<button class="pure-button" onclick="showRelationships(event)">Show</button>
+			</div>
+		</fieldset>
+	</form> 	
+</div>
+<div id="relationshipResults" style="margin: 40px 200px">
+</div>
+<div id="GamesTableDiv" style="margin: 40px 200px">
+	<h3>Legend of Zelda Games</h3>
+	<table id="GamesTable" class="pure-table pure-table-striped">
+		<thead>
+			<tr>
+				<th hidden>Id</th>
+				<th>Title</th>
+				<th>Release Date</th>
+				<th>Sales (Millions)</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody id="GamesBody">
+			{{#each gameResults}}
+			<tr>
+				<td hidden name="id">{{this.id}}</td>
+				<td name = "title">{{this.title}}</td>
+				<td name="yearReleased">{{this.yearReleased}}</td>
+				<td name="sales">{{this.sales}}</td>
+				<td><button class="pure-button" type="submit" value={{this.id}} onclick="deleteRow(event)">Delete</button></td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>
+ <div id="ConsolesTableDiv" style="margin: 40px 200px">
+	 <h3>Nintendo Consoles</h3>
+	<table id="ConsolesTable" class="pure-table pure-table-striped">
+			<thead>
+				<tr>
+					<th hidden>Id</th>
+					<th>Name</th>
+					<th>Year Released</th>
+					<th>Sales</th>
+					<th>Handheld</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="ConsolesBody">
+				{{#each consoleResults}}
+				<tr>
+					<td hidden name="id">{{this.id}}</td>
+					<td name = "name">{{this.name}}</td>
+					<td name="yearReleased">{{this.yearReleased}}</td>
+					<td name="sales">{{this.sales}}</td>
+					<td name="handheld">{{this.handheld}}</td>
+					<td><button class="pure-button" type="submit" value={{this.id}} onclick="deleteRow(event)">Delete</button></td>
+				</tr>
+				{{/each}}
+		</tbody>
+	</table>
+</div>
+<div id="LocationsTableDiv" style="margin: 40px 200px">
+	<h3>Legend of Zelda Locations/Dungeons</h3>
+	<table id="LocationsTable" class="pure-table pure-table-striped">
+			<thead>
+				<tr>
+					<th hidden>Id</th>
+					<th>Name</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="LocationsBody">
+				{{#each locationResults}}
+				<tr>
+					<td hidden name="id">{{this.id}}</td>
+					<td name = "name">{{this.name}}</td>
+					<td><button class="pure-button" type="submit" value={{this.id}} onclick="deleteRow(event)">Delete</button></td>
+				</tr>
+				{{/each}}
+		</tbody>
+	</table>
+</div>
+<div id="CharactersTableDiv" style="margin: 40px 200px">
+	<h3>Legend of Zelda Characters</h3>
+	<table id="CharactersTable" class="pure-table pure-table-striped">
+			<thead>
+				<tr>
+					<th hidden>Id</th>
+					<th>Name</th>
+					<th>Location ID</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="CharactersBody">
+				{{#each characterResults}}
+				<tr>
+					<td hidden name="id">{{this.id}}</td>
+					<td name = "name">{{this.name}}</td>
+					<td name = "locationID">{{this.locationID}}</td>
+					<td><button class="pure-button" type="submit" value={{this.id}} onclick="deleteRow(event)">Delete</button></td>
+				</tr>
+				{{/each}}
+		</tbody>
+	</table>
+</div>
+
+<script src="/js/script.js"></script>
